@@ -1,0 +1,99 @@
+{
+  "project_info": {
+    "project_number": "599105892868",
+    "firebase_url": "https://retirementcalculatorpoc.firebaseio.com",
+    "project_id": "retirementcalculatorpoc",
+    "storage_bucket": "retirementcalculatorpoc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:599105892868:android:31c2097dd76c094fc9fb51",
+        "android_client_info": {
+          "package_name": "bhsoft.retirement.calculator.poc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "599105892868-g8udf7f97tjnvq0tsrpc8e6a4jb3hm2d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "bhsoft.retirement.calculator.poc",
+            "certificate_hash": "12a77814d2d3d66912405c22a744c79b8601e49b"
+          }
+        },
+        {
+          "client_id": "599105892868-g64jo91etp4uh4em8umbr34upa3db3lg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzZEllVtBJxmyCW_mWSgcSdnfRb9dsCCk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "599105892868-g64jo91etp4uh4em8umbr34upa3db3lg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "599105892868-pi7f8toqu7kv3sp8oebm3176qstv5kh5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "bac.vuongtoan.Retirement-Calculator"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:599105892868:android:358a088300c5202ac9fb51",
+        "android_client_info": {
+          "package_name": "bhsoft.soanlv.caculatorpoc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "599105892868-da4v16fp1a01tgh003o7t9vn4ok6uijc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "bhsoft.soanlv.caculatorpoc",
+            "certificate_hash": "fd42550c46f402c1a2ee6f27cbe9e649c6258adf"
+          }
+        },
+        {
+          "client_id": "599105892868-g64jo91etp4uh4em8umbr34upa3db3lg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzZEllVtBJxmyCW_mWSgcSdnfRb9dsCCk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "599105892868-g64jo91etp4uh4em8umbr34upa3db3lg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "599105892868-pi7f8toqu7kv3sp8oebm3176qstv5kh5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "bac.vuongtoan.Retirement-Calculator"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
