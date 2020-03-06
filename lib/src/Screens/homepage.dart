@@ -191,259 +191,517 @@ class HomeState extends State<Home> {
     return Scaffold(
 //      resizeToAvoidBottomPadding: false,
       backgroundColor: Colors.white,
-      body: Container(
-        margin: EdgeInsets.only(top: 20.0, left: 16.0, right: 16.0,bottom: 16.0),
-        child: SingleChildScrollView(
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(top: 16.0),
-                  child: Text(
-                    "Retirement caculator",
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+      body: GestureDetector(
+        onTap: () {
+          FocusScopeNode currentFocus = FocusScope.of(context);
+
+          if (!currentFocus.hasPrimaryFocus) {
+            currentFocus.unfocus();
+          }
+        },
+        child: new Container(
+          margin:
+              EdgeInsets.only(top: 20.0, left: 16.0, right: 16.0, bottom: 16.0),
+          child: SingleChildScrollView(
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(top: 16.0),
+                    child: Text(
+                      "Retirement caculator",
+                      style:
+                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 0.0),
-                  child: Text(
-                    "Tell us a few things abuot yourself, and this caculator will show whether you're on track for the retirement you want",
-                    style: TextStyle(fontSize: 20, fontStyle: FontStyle.normal),
-                    textScaleFactor: 1,
-                    textAlign: TextAlign.left,
+                  Padding(
+                    padding: EdgeInsets.only(top: 0.0),
+                    child: Text(
+                      "Tell us a few things abuot yourself, and this caculator will show whether you're on track for the retirement you want",
+                      style:
+                          TextStyle(fontSize: 20, fontStyle: FontStyle.normal),
+                      textScaleFactor: 1,
+                      textAlign: TextAlign.left,
+                    ),
                   ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(top: 20),
-                  child: Row(
-                    children: <Widget>[
-                      Text(
-                        "I am ",
-                        style: TextStyle(
-                            fontSize: 20, fontStyle: FontStyle.normal),
-                      ),
-                      SizedBox(
-                          width: 60,
-                          child: new TextField(
+                  Container(
+                    padding: EdgeInsets.only(top: 20),
+                    child: Row(
+                      children: <Widget>[
+                        Text(
+                          "I am ",
+                          style: TextStyle(
+                              fontSize: 20, fontStyle: FontStyle.normal),
+                        ),
+                        SizedBox(
+                            width: 60,
+                            child: new TextField(
+                                style: TextStyle(fontSize: 20, height: 2.0),
+                                keyboardType: TextInputType.number,
+                                textAlign: TextAlign.center,
+                                decoration: InputDecoration(
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        horizontal: 5.0),
+                                    border: OutlineInputBorder(),
+                                    hintText: 'Enter'),
+                                controller: _oldControler)),
+                        Container(
+                          child: Text(
+                            " years old,",
+                            style: TextStyle(
+                                fontSize: 20, fontStyle: FontStyle.normal),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 10.0),
+                    child: Text(
+                      "My pre-tax income is (\$) ",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(top: 10),
+                    child: Row(
+                      children: <Widget>[
+                        SizedBox(
+                            width: 100,
+                            child: new TextField(
                               style: TextStyle(fontSize: 20, height: 2.0),
                               keyboardType: TextInputType.number,
+                              textAlign: TextAlign.center,
                               decoration: InputDecoration(
                                   contentPadding: const EdgeInsets.symmetric(
                                       horizontal: 5.0),
                                   border: OutlineInputBorder(),
-                                  hintText: 'Enter'),
-                              controller: _oldControler)),
-                      Container(
-                        child: Text(
-                          " years old,",
-                          style: TextStyle(
-                              fontSize: 20, fontStyle: FontStyle.normal),
+                                  hintText: 'Enter '),
+                              controller: _PreincomeControler,
+                            )),
+                        Container(
+                          child: Text(
+                            " and I have current ",
+                            style: TextStyle(
+                                fontSize: 20, fontStyle: FontStyle.normal),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 10.0),
-                  child: Text(
-                    "My pre-tax income is (\$) ",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(top: 10),
-                  child: Row(
-                    children: <Widget>[
-                      SizedBox(
-                          width: 100,
-                          child: new TextField(
-                            style: TextStyle(fontSize: 20, height: 2.0),
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
+                  Container(
+                    padding: EdgeInsets.only(top: 10),
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          child: Text(
+                            "Saving of  ",
+                            style: TextStyle(
+                                fontSize: 20, fontStyle: FontStyle.normal),
+                          ),
+                        ),
+                        SizedBox(
+                            width: 100,
+                            child: new TextField(
+                              style: TextStyle(fontSize: 20, height: 2.0),
+                              keyboardType: TextInputType.number,
+                              textAlign: TextAlign.center,
+                              decoration: InputDecoration(
                                 contentPadding:
                                     const EdgeInsets.symmetric(horizontal: 5.0),
                                 border: OutlineInputBorder(),
-                                hintText: 'Enter '),
-                            controller: _PreincomeControler,
-                          )),
-                      Container(
-                        child: Text(
-                          " and I have current ",
-                          style: TextStyle(
-                              fontSize: 20, fontStyle: FontStyle.normal),
-                        ),
-                      ),
-                    ],
+                              ),
+                              controller: _curentControler,
+                            )),
+                      ],
+                    ),
                   ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(top: 10),
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        child: Text(
-                          "Saving of  ",
+                  Container(
+                    padding: EdgeInsets.only(top: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "Every month I save (\$)",
                           style: TextStyle(
-                              fontSize: 20, fontStyle: FontStyle.normal),
+                              fontSize: 20, fontWeight: FontWeight.bold),
                         ),
-                      ),
-                      SizedBox(
-                          width: 100,
-                          child: new TextField(
-                            style: TextStyle(fontSize: 20, height: 2.0),
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              contentPadding:
-                                  const EdgeInsets.symmetric(horizontal: 5.0),
-                              border: OutlineInputBorder(),
-                            ),
-                            controller: _curentControler,
-                          )),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(top: 10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        "Every month I save (\$)",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10.0),
-                        child: Row(
-                          children: <Widget>[
-                            SizedBox(
-                              child: RaisedButton(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(5))),
-                                color: Colors.white,
-                                onPressed: () {
-                                  setState(() {
-                                    if (_counter == 0) {
-                                      _isButtonDisabled = false;
-                                    } else {
-                                      _isButtonDisabled = true;
-                                      _counter = _counter - 50;
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10.0),
+                          child: Row(
+                            children: <Widget>[
+                              SizedBox(
+                                child: RaisedButton(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(5))),
+                                  color: Colors.white,
+                                  onPressed: () {
+                                    setState(() {
+                                      if (_counter == 0) {
+                                        _isButtonDisabled = false;
+                                      } else {
+                                        _isButtonDisabled = true;
+                                        _counter = _counter - 50;
+                                        _monlthlySaveControler.text =
+                                            '$_counter';
+                                        caculator();
+                                      }
+                                    });
+                                  },
+                                  child: Text(
+                                    "-",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 32,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                height: 50,
+                                width: 50,
+                              ),
+                              SizedBox(
+                                  width: 150,
+                                  child: new TextField(
+                                    style: TextStyle(fontSize: 20, height: 2.0),
+                                    keyboardType: TextInputType.number,
+                                    textAlign: TextAlign.center,
+                                    decoration: InputDecoration(
+                                        contentPadding:
+                                            const EdgeInsets.symmetric(
+                                                horizontal: 5.0),
+                                        border: OutlineInputBorder(),
+                                        hintText: 'Enter'),
+                                    controller: _monlthlySaveControler,
+                                  )),
+                              SizedBox(
+                                child: RaisedButton(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(5))),
+                                  color: Colors.white,
+                                  onPressed: () {
+                                    setState(() {
+                                      _counter = _counter + 50;
                                       _monlthlySaveControler.text = '$_counter';
                                       caculator();
-                                    }
-                                  });
-                                },
-                                child: Text(
-                                  "-",
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 32,
-                                      fontWeight: FontWeight.bold),
+                                    });
+                                  },
+                                  child: Text(
+                                    "+",
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 32,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
+                                height: 50,
+                                width: 50,
                               ),
-                              height: 50,
-                              width: 50,
-                            ),
-                            SizedBox(
-                                width: 150,
-                                child: new TextField(
-                                  style: TextStyle(fontSize: 20, height: 2.0),
-                                  keyboardType: TextInputType.number,
-                                  textAlign: TextAlign.center,
-                                  decoration: InputDecoration(
-                                      contentPadding:
-                                          const EdgeInsets.symmetric(
-                                              horizontal: 5.0),
-                                      border: OutlineInputBorder(),
-                                      hintText: 'Enter'),
-                                  controller: _monlthlySaveControler,
-                                )),
-                            SizedBox(
-                              child: RaisedButton(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(5))),
-                                color: Colors.white,
-                                onPressed: () {
-                                  setState(() {
-                                    _counter = _counter + 50;
-                                    _monlthlySaveControler.text = '$_counter';
-                                    caculator();
-                                  });
-                                },
-                                child: Text(
-                                  "+",
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 32,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              height: 50,
-                              width: 50,
-                            ),
-                          ],
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(top: 15.0),
+                        child: Text(
+                          formatted = oCcy.format(_monlthlyControler),
+                          style: TextStyle(fontSize: 20),
                         ),
-                      )
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 0.0, top: 15.0),
+                        child: Text(
+                          "% of my monthly income",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      ),
                     ],
                   ),
-                ),
-                Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15.0),
-                      child: Text(
-                        formatted = oCcy.format(_monlthlyControler),
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 0.0, top: 15.0),
-                      child: Text(
-                        "% of my monthly income",
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: (isExpand == true)
-                      ? const EdgeInsets.all(8.0)
-                      : const EdgeInsets.all(12.0),
-                  child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: (isExpand != true)
-                            ? BorderRadius.all(Radius.circular(8))
-                            : BorderRadius.all(Radius.circular(22)),
-                      ),
-                      child: ExpansionTile(
-                        title: Container(
-                            width: double.infinity,
-                            child: Text(
-                              "Optional",
-                              style: TextStyle(
-                                  fontSize: (isExpand != true) ? 18 : 22),
-                            )),
-                        trailing: (isExpand == true)
-                            ? Icon(
-                                Icons.arrow_drop_down,
-                                size: 32,
-                                color: Colors.pink,
-                              )
-                            : Icon(Icons.arrow_drop_up,
-                                size: 32, color: Colors.pink),
-                        onExpansionChanged: (value) {
-                          setState(() {
-                            isExpand = value;
-                          });
-                        },
-                        children: <Widget>[
-                          Container(
-                            child: Column(
+                  Padding(
+                    padding: (isExpand == true)
+                        ? const EdgeInsets.all(8.0)
+                        : const EdgeInsets.all(12.0),
+                    child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: (isExpand != true)
+                              ? BorderRadius.all(Radius.circular(8))
+                              : BorderRadius.all(Radius.circular(22)),
+                        ),
+                        child: ExpansionTile(
+                          title: Container(
+                              width: double.infinity,
+                              child: Text(
+                                "Optional",
+                                style: TextStyle(
+                                    fontSize: (isExpand != true) ? 18 : 22),
+                              )),
+                          trailing: (isExpand == true)
+                              ? Icon(
+                                  Icons.arrow_drop_down,
+                                  size: 32,
+                                  color: Colors.pink,
+                                )
+                              : Icon(Icons.arrow_drop_up,
+                                  size: 32, color: Colors.pink),
+                          onExpansionChanged: (value) {
+                            setState(() {
+                              isExpand = value;
+                            });
+                          },
+                          children: <Widget>[
+                            Container(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Row(
+                                    children: <Widget>[
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 15.0),
+                                        child: Text(
+                                          "Monthly retirement spending (\$)",
+                                          style: TextStyle(fontSize: 20),
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          MsgDialog.showMsgDialog(
+                                              context,
+                                              "note",
+                                              "A common rule of thumb is living 70% of current income "
+                                                  "(using savings, investments, Social"
+                                                  " Security and other sources, such as a pension).");
+                                        },
+                                        child: Container(
+                                          child: Text(
+                                            "?",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                            ),
+                                          ),
+                                          height: 30,
+                                          alignment: Alignment.center,
+                                          width: 30,
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  width: 2.0,
+                                                  color: Colors.black),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(30.0))),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 10.0),
+                                    child: Row(
+                                      children: <Widget>[
+                                        SizedBox(
+                                          child: RaisedButton(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(5))),
+                                            color: Colors.white,
+                                            onPressed: () {
+                                              setState(() {
+                                                if (_counter2 == 0) {
+                                                  _isButtonDisabled = false;
+                                                } else {
+                                                  _counter2 = _counter2 - 100;
+                                                  _spellingControler.text =
+                                                      '$_counter2';
+                                                  caculator();
+                                                }
+                                              });
+                                            },
+                                            child: Text(
+                                              "-",
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 32,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                          height: 50,
+                                          width: 50,
+                                        ),
+                                        SizedBox(
+                                            width: 150,
+                                            child: new TextField(
+                                              style: TextStyle(
+                                                  fontSize: 20, height: 2.0),
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              textAlign: TextAlign.center,
+                                              decoration: InputDecoration(
+                                                  contentPadding:
+                                                      const EdgeInsets
+                                                              .symmetric(
+                                                          horizontal: 5.0),
+                                                  border: OutlineInputBorder(),
+                                                  hintText: 'Enter'),
+                                              controller: _spellingControler,
+                                            )),
+                                        SizedBox(
+                                          child: RaisedButton(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(5))),
+                                            color: Colors.white,
+                                            onPressed: () {
+                                              setState(() {
+                                                _counter2 = _counter2 + 100;
+                                                _spellingControler.text =
+                                                    '$_counter2';
+                                                caculator();
+                                              });
+                                            },
+                                            child: Text(
+                                              "+",
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 32,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                          height: 50,
+                                          width: 50,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Row(
+                                    children: <Widget>[
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 15.0),
+                                        child: Text(
+                                          "Other expected income(\$)",
+                                          style: TextStyle(fontSize: 20),
+                                        ),
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          MsgDialog.showMsgDialog(
+                                              context,
+                                              "note",
+                                              "Add any other expected retirement income (Social Security, pension, etc.)."
+                                                  " Need to estimate your Social "
+                                                  "Security benefits? See the link under \"How we got here.\"");
+                                        },
+                                        child: Container(
+                                          child: Text(
+                                            "?",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                            ),
+                                          ),
+                                          height: 30,
+                                          alignment: Alignment.center,
+                                          width: 30,
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  width: 2.0,
+                                                  color: Colors.black),
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(30.0))),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 10.0),
+                                    child: Row(
+                                      children: <Widget>[
+                                        SizedBox(
+                                          child: RaisedButton(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(5))),
+                                            color: Colors.white,
+                                            onPressed: () {
+                                              setState(() {
+                                                if (_counter3 == 0) {
+                                                  _isButtonDisabled = false;
+                                                } else {
+                                                  _counter3 = _counter3 - 100;
+                                                  _otherIncomeControler.text =
+                                                      '$_counter3';
+
+                                                  caculator();
+                                                }
+                                              });
+                                            },
+                                            child: Text(
+                                              "-",
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 32,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                          height: 50,
+                                          width: 50,
+                                        ),
+                                        SizedBox(
+                                            width: 150,
+                                            child: new TextField(
+                                              style: TextStyle(
+                                                  fontSize: 20, height: 2.0),
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              textAlign: TextAlign.center,
+                                              decoration: InputDecoration(
+                                                  contentPadding:
+                                                      const EdgeInsets
+                                                              .symmetric(
+                                                          horizontal: 5.0),
+                                                  border: OutlineInputBorder(),
+                                                  hintText: 'Enter'),
+                                              controller: _otherIncomeControler,
+                                            )),
+                                        SizedBox(
+                                          child: RaisedButton(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(5))),
+                                            color: Colors.white,
+                                            onPressed: () {
+                                              setState(() {
+                                                _counter3 = _counter3 + 100;
+                                                _otherIncomeControler.text =
+                                                    '$_counter3';
+                                                caculator();
+                                              });
+                                            },
+                                            child: Text(
+                                              "+",
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 32,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                          height: 50,
+                                          width: 50,
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Row(
@@ -451,7 +709,7 @@ class HomeState extends State<Home> {
                                     Padding(
                                       padding: const EdgeInsets.only(top: 15.0),
                                       child: Text(
-                                        "Monthly retirement spending (\$)",
+                                        "I want to retire at age",
                                         style: TextStyle(fontSize: 20),
                                       ),
                                     ),
@@ -460,9 +718,8 @@ class HomeState extends State<Home> {
                                         MsgDialog.showMsgDialog(
                                             context,
                                             "note",
-                                            "A common rule of thumb is living 70% of current income "
-                                                "(using savings, investments, Social"
-                                                " Security and other sources, such as a pension).");
+                                            "Most people go with 67. Cf course, "
+                                                "the longer you work, the more you can save.");
                                       },
                                       child: Container(
                                         child: Text(
@@ -497,12 +754,12 @@ class HomeState extends State<Home> {
                                           color: Colors.white,
                                           onPressed: () {
                                             setState(() {
-                                              if (_counter2 == 0) {
+                                              if (_counter4 == 0) {
                                                 _isButtonDisabled = false;
                                               } else {
-                                                _counter2 = _counter2 - 100;
-                                                _spellingControler.text =
-                                                    '$_counter2';
+                                                _counter4 = _counter4 - 1;
+                                                _retireAgeControler.text =
+                                                    '$_counter4';
                                                 caculator();
                                               }
                                             });
@@ -531,7 +788,7 @@ class HomeState extends State<Home> {
                                                         horizontal: 5.0),
                                                 border: OutlineInputBorder(),
                                                 hintText: 'Enter'),
-                                            controller: _spellingControler,
+                                            controller: _retireAgeControler,
                                           )),
                                       SizedBox(
                                         child: RaisedButton(
@@ -541,9 +798,9 @@ class HomeState extends State<Home> {
                                           color: Colors.white,
                                           onPressed: () {
                                             setState(() {
-                                              _counter2 = _counter2 + 100;
-                                              _spellingControler.text =
-                                                  '$_counter2';
+                                              _counter4 = _counter4 + 1;
+                                              _retireAgeControler.text =
+                                                  '$_counter4';
                                               caculator();
                                             });
                                           },
@@ -566,7 +823,7 @@ class HomeState extends State<Home> {
                                     Padding(
                                       padding: const EdgeInsets.only(top: 15.0),
                                       child: Text(
-                                        "Other expected income(\$)",
+                                        "Life expectancy",
                                         style: TextStyle(fontSize: 20),
                                       ),
                                     ),
@@ -575,9 +832,8 @@ class HomeState extends State<Home> {
                                         MsgDialog.showMsgDialog(
                                             context,
                                             "note",
-                                            "Add any other expected retirement income (Social Security, pension, etc.)."
-                                                " Need to estimate your Social "
-                                                "Security benefits? See the link under \"How we got here.\"");
+                                            "People are living longer and healthier lives,"
+                                                " so it's wise to plan for a long retirement.");
                                       },
                                       child: Container(
                                         child: Text(
@@ -611,17 +867,14 @@ class HomeState extends State<Home> {
                                                   Radius.circular(5))),
                                           color: Colors.white,
                                           onPressed: () {
-                                            setState(() {
-                                              if (_counter3 == 0) {
-                                                _isButtonDisabled = false;
-                                              } else {
-                                                _counter3 = _counter3 - 100;
-                                                _otherIncomeControler.text =
-                                                    '$_counter3';
-
-                                                caculator();
-                                              }
-                                            });
+                                            if (_counter5 == 0) {
+                                              _isButtonDisabled = false;
+                                            } else {
+                                              _counter5 = _counter5 - 1;
+                                              _lifeExpControler.text =
+                                                  '$_counter5';
+                                              caculator();
+                                            }
                                           },
                                           child: Text(
                                             "-",
@@ -647,7 +900,7 @@ class HomeState extends State<Home> {
                                                         horizontal: 5.0),
                                                 border: OutlineInputBorder(),
                                                 hintText: 'Enter'),
-                                            controller: _otherIncomeControler,
+                                            controller: _lifeExpControler,
                                           )),
                                       SizedBox(
                                         child: RaisedButton(
@@ -657,9 +910,9 @@ class HomeState extends State<Home> {
                                           color: Colors.white,
                                           onPressed: () {
                                             setState(() {
-                                              _counter3 = _counter3 + 100;
-                                              _otherIncomeControler.text =
-                                                  '$_counter3';
+                                              _counter5 = _counter5 + 1;
+                                              _lifeExpControler.text =
+                                                  '$_counter5';
                                               caculator();
                                             });
                                           },
@@ -679,447 +932,176 @@ class HomeState extends State<Home> {
                                 )
                               ],
                             ),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Row(
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 15.0),
-                                    child: Text(
-                                      "I want to retire at age",
-                                      style: TextStyle(fontSize: 20),
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      MsgDialog.showMsgDialog(
-                                          context,
-                                          "note",
-                                          "Most people go with 67. Cf course, "
-                                              "the longer you work, the more you can save.");
-                                    },
-                                    child: Container(
-                                      child: Text(
-                                        "?",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                        ),
-                                      ),
-                                      height: 30,
-                                      alignment: Alignment.center,
-                                      width: 30,
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              width: 2.0, color: Colors.black),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(30.0))),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 10.0),
-                                child: Row(
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Row(
                                   children: <Widget>[
-                                    SizedBox(
-                                      child: RaisedButton(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(5))),
-                                        color: Colors.white,
-                                        onPressed: () {
-                                          setState(() {
-                                            if (_counter4 == 0) {
-                                              _isButtonDisabled = false;
-                                            } else {
-                                              _counter4 = _counter4 - 1;
-                                              _retireAgeControler.text =
-                                                  '$_counter4';
-                                              caculator();
-                                            }
-                                          });
-                                        },
-                                        child: Text(
-                                          "-",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 32,
-                                              fontWeight: FontWeight.bold),
-                                        ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 15.0),
+                                      child: Text(
+                                        "Investment rate of return(%)",
+                                        style: TextStyle(fontSize: 20),
                                       ),
-                                      height: 50,
-                                      width: 50,
                                     ),
-                                    SizedBox(
-                                        width: 150,
-                                        child: new TextField(
-                                          style: TextStyle(
-                                              fontSize: 20, height: 2.0),
-                                          keyboardType: TextInputType.number,
-                                          textAlign: TextAlign.center,
-                                          decoration: InputDecoration(
-                                              contentPadding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 5.0),
-                                              border: OutlineInputBorder(),
-                                              hintText: 'Enter'),
-                                          controller: _retireAgeControler,
-                                        )),
-                                    SizedBox(
-                                      child: RaisedButton(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(5))),
-                                        color: Colors.white,
-                                        onPressed: () {
-                                          setState(() {
-                                            _counter4 = _counter4 + 1;
-                                            _retireAgeControler.text =
-                                                '$_counter4';
-                                            caculator();
-                                          });
-                                        },
+                                    GestureDetector(
+                                      onTap: () {
+                                        MsgDialog.showMsgDialog(
+                                            context,
+                                            "note",
+                                            "What do you expect your investments to earn between now and retirement?"
+                                                " Our default of a 6% average annual return is a"
+                                                " conservative estimate based on historic returns.");
+                                      },
+                                      child: Container(
                                         child: Text(
-                                          "+",
+                                          "?",
+                                          textAlign: TextAlign.center,
                                           style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 32,
-                                              fontWeight: FontWeight.bold),
+                                            fontSize: 20,
+                                          ),
                                         ),
+                                        height: 30,
+                                        alignment: Alignment.center,
+                                        width: 30,
+                                        decoration: BoxDecoration(
+                                            border: Border.all(
+                                                width: 2.0,
+                                                color: Colors.black),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(30.0))),
                                       ),
-                                      height: 50,
-                                      width: 50,
                                     ),
                                   ],
                                 ),
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 15.0),
-                                    child: Text(
-                                      "Life expectancy",
-                                      style: TextStyle(fontSize: 20),
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      MsgDialog.showMsgDialog(
-                                          context,
-                                          "note",
-                                          "People are living longer and healthier lives,"
-                                              " so it's wise to plan for a long retirement.");
-                                    },
-                                    child: Container(
-                                      child: Text(
-                                        "?",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: 20,
+                                Container(
+                                  margin: EdgeInsets.only(bottom: 10.0),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 10.0),
+                                    child: Row(
+                                      children: <Widget>[
+                                        SizedBox(
+                                          child: RaisedButton(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(5))),
+                                            color: Colors.white,
+                                            onPressed: () {
+                                              setState(() {
+                                                if (_counter6 == 0) {
+                                                  _isButtonDisabled = false;
+                                                } else {
+                                                  _counter6 = _counter6 - 0.5;
+                                                  _investRateControler.text =
+                                                      '$_counter6';
+                                                  caculator();
+                                                }
+                                              });
+                                            },
+                                            child: Text(
+                                              "-",
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 32,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                          height: 50,
+                                          width: 50,
                                         ),
-                                      ),
-                                      height: 30,
-                                      alignment: Alignment.center,
-                                      width: 30,
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              width: 2.0, color: Colors.black),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(30.0))),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 10.0),
-                                child: Row(
-                                  children: <Widget>[
-                                    SizedBox(
-                                      child: RaisedButton(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(5))),
-                                        color: Colors.white,
-                                        onPressed: () {
-                                          if (_counter5 == 0) {
-                                            _isButtonDisabled = false;
-                                          } else {
-                                            _counter5 = _counter5 - 1;
-                                            _lifeExpControler.text =
-                                                '$_counter5';
-                                            caculator();
-                                          }
-                                        },
-                                        child: Text(
-                                          "-",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 32,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                      height: 50,
-                                      width: 50,
-                                    ),
-                                    SizedBox(
-                                        width: 150,
-                                        child: new TextField(
-                                          style: TextStyle(
-                                              fontSize: 20, height: 2.0),
-                                          keyboardType: TextInputType.number,
-                                          textAlign: TextAlign.center,
-                                          decoration: InputDecoration(
-                                              contentPadding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 5.0),
-                                              border: OutlineInputBorder(),
-                                              hintText: 'Enter'),
-                                          controller: _lifeExpControler,
-                                        )),
-                                    SizedBox(
-                                      child: RaisedButton(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(5))),
-                                        color: Colors.white,
-                                        onPressed: () {
-                                          setState(() {
-                                            _counter5 = _counter5 + 1;
-                                            _lifeExpControler.text =
-                                                '$_counter5';
-                                            caculator();
-                                          });
-                                        },
-                                        child: Text(
-                                          "+",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 32,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                      height: 50,
-                                      width: 50,
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Row(
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 15.0),
-                                    child: Text(
-                                      "Investment rate of return(%)",
-                                      style: TextStyle(fontSize: 20),
-                                    ),
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      MsgDialog.showMsgDialog(
-                                          context,
-                                          "note",
-                                          "What do you expect your investments to earn between now and retirement?"
-                                              " Our default of a 6% average annual return is a"
-                                              " conservative estimate based on historic returns.");
-                                    },
-                                    child: Container(
-                                      child: Text(
-                                        "?",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                        ),
-                                      ),
-                                      height: 30,
-                                      alignment: Alignment.center,
-                                      width: 30,
-                                      decoration: BoxDecoration(
-                                          border: Border.all(
-                                              width: 2.0, color: Colors.black),
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(30.0))),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(bottom: 10.0),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top: 10.0),
-                                  child: Row(
-                                    children: <Widget>[
-                                      SizedBox(
-                                        child: RaisedButton(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(5))),
-                                          color: Colors.white,
-                                          onPressed: () {
-                                            setState(() {
-                                              if (_counter6 == 0) {
-                                                _isButtonDisabled = false;
-                                              } else {
-                                                _counter6 = _counter6 - 0.5;
+                                        SizedBox(
+                                            width: 150,
+                                            child: new TextField(
+                                              style: TextStyle(
+                                                  fontSize: 20, height: 2.0),
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              textAlign: TextAlign.center,
+                                              decoration: InputDecoration(
+                                                  contentPadding:
+                                                      const EdgeInsets
+                                                              .symmetric(
+                                                          horizontal: 5.0),
+                                                  border: OutlineInputBorder(),
+                                                  hintText: 'Enter'),
+                                              controller: _investRateControler,
+                                            )),
+                                        SizedBox(
+                                          child: RaisedButton(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(5))),
+                                            color: Colors.white,
+                                            onPressed: () {
+                                              setState(() {
+                                                _counter6 = _counter6 + 0.5;
                                                 _investRateControler.text =
                                                     '$_counter6';
                                                 caculator();
-                                              }
-                                            });
-                                          },
-                                          child: Text(
-                                            "-",
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 32,
-                                                fontWeight: FontWeight.bold),
+                                              });
+                                            },
+                                            child: Text(
+                                              "+",
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 32,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
                                           ),
+                                          height: 50,
+                                          width: 50,
                                         ),
-                                        height: 50,
-                                        width: 50,
-                                      ),
-                                      SizedBox(
-                                          width: 150,
-                                          child: new TextField(
-                                            style: TextStyle(
-                                                fontSize: 20, height: 2.0),
-                                            keyboardType: TextInputType.number,
-                                            textAlign: TextAlign.center,
-                                            decoration: InputDecoration(
-                                                contentPadding:
-                                                    const EdgeInsets.symmetric(
-                                                        horizontal: 5.0),
-                                                border: OutlineInputBorder(),
-                                                hintText: 'Enter'),
-                                            controller: _investRateControler,
-                                          )),
-                                      SizedBox(
-                                        child: RaisedButton(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(5))),
-                                          color: Colors.white,
-                                          onPressed: () {
-                                            setState(() {
-                                              _counter6 = _counter6 + 0.5;
-                                              _investRateControler.text =
-                                                  '$_counter6';
-                                              caculator();
-                                            });
-                                          },
-                                          child: Text(
-                                            "+",
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 32,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ),
-                                        height: 50,
-                                        width: 50,
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      )),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 15.0),
-                  child: Text(
-                    "How much will you need to retire at 67?(\$)",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        chartWidget2,
-                      ],
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        chartWidget,
-                      ],
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 15.0),
-                  child: Text(
-                    "Retirement savings score",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ),
-                ////Thanh score đây :
-
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.only(top: 30),
-                  child: Stack(children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Container(
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.red),
-                                  color: Colors.red),
-                              height: 50,
-                              width: MediaQuery.of(context).size.width - 270,
-                            ),
-                            Container(
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.red),
-                                  color: Colors.yellow),
-                              height: 50,
-                              width: MediaQuery.of(context).size.width - 310,
-                            ),
-                            Container(
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.red),
-                                    color: Colors.blue),
-                                height: 50,
-                                width: MediaQuery.of(context).size.width - 340),
-                            Container(
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.red),
-                                  color: Colors.lightGreen),
-                              height: 50,
-                              width: MediaQuery.of(context).size.width - 347,
+                              ],
                             ),
                           ],
-                        ),
-                      ],
+                        )),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5.0),
+                    child: Text(
+                      "How much will you need to retire at 67?(\$)",
+                      style: TextStyle(fontSize: 20),
                     ),
-                    Column(
-                      children: <Widget>[
-//                      Padding(
-//                        padding: EdgeInsets.only(
-//                            right: MediaQuery.of(context).size.width /100),
-//                        child: Text("You are % \nto goal",
-//                            style: TextStyle(color: Colors.black)),
-//                      ),
-                        Padding(
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          chartWidget2,
+                        ],
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          chartWidget,
+                        ],
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 15.0),
+                    child: Text(
+                      "Retirement savings score",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  ////Thanh score đây :
+                  Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.only(top:10.0,
+                            right: MediaQuery.of(context).size.width /100),
+                        child: Text("You are 51% \nto goal",
+                            style: TextStyle(color: Colors.black)),
+                      ),
+                      SizedBox(
+                        child: Padding(
                           padding: EdgeInsets.only(
                               left: MediaQuery.of(context).size.width - 400),
                           child: Icon(
@@ -1127,52 +1109,73 @@ class HomeState extends State<Home> {
                             size: 40,
                             color: Colors.black,
                           ),
-                        )
-                      ],
-                    ),
-                  ]),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 15.0),
-                  child: Text(
-                    "Let's get Future You",
-                    style: TextStyle(fontSize: 40),
+                        ),
+                      )
+                    ],
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 0.0),
-                  child: Text(
-                    "Out the red.",
-                    style: TextStyle(fontSize: 30, color: Colors.red),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    alignment: Alignment.center,
+
+                    child: Stack(children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          Row(
+                            children: <Widget>[
+                              Container(
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.red),
+                                    color: Colors.red),
+                                height: 50,
+                                width: 100,
+                              ),
+                              Container(
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.red),
+                                    color: Colors.yellow),
+                                height: 50,
+                                width: 120,
+                              ),
+                              Container(
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.red),
+                                      color: Colors.blue),
+                                  height: 50,
+                                  width: 60),
+                              Container(
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.red),
+                                    color: Colors.lightGreen),
+                                height: 50,
+                                width: 40,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+
+                    ]),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 0.0),
-                  child: Text(
-                    "There are a few steps you could take to jumpstart your retirement savings."
-                    " Create an account to reduce your bills, "
-                    "eliminate debt and grow your money.",
-                    style: TextStyle(fontSize: 15, color: Colors.black),
-                  ),
-                ),
-                SizedBox(
-                  child: RaisedButton(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(5))),
-                    color: Colors.green,
-                    onPressed: () {},
+                  Padding(
+                    padding: const EdgeInsets.only(top: 15.0),
                     child: Text(
-                      "GET STARTED (IT'S FREE)",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
+                      "Let's get Future You",
+                      style: TextStyle(fontSize: 40),
                     ),
                   ),
-                  height: 50,
-                  width: 250,
-                ),
-              ],
+                  Padding(
+                    padding: const EdgeInsets.only(top: 0.0),
+                    child: Text(
+                      "Out the red.",
+                      style: TextStyle(fontSize: 30, color: Colors.red),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
