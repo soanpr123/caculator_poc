@@ -5,6 +5,7 @@ import 'package:caculatorpoc/src/resources/model/Item.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 import 'FogotPass.dart';
@@ -26,6 +27,9 @@ class _LoginStatePage extends State<LoginPage> {
   final _storage = new FlutterSecureStorage();
   LoginBloc bloc = new LoginBloc();
   bool savepass = false;
+  bool isLoggedIn = false;
+  String name="";
+  String Password="";
   TextEditingController _userC = new TextEditingController();
   TextEditingController _passC = new TextEditingController();
   void _onRememberMeChanged(bool newValue) => setState(()  {
@@ -58,10 +62,9 @@ return true;
     await _storage.delete(key: _keypas);
 return false;
   }
-
+//
   @override
   void initState() {
-
     super.initState();
     print("innitstate");
     read();
@@ -73,6 +76,7 @@ return false;
     return Scaffold(
       resizeToAvoidBottomPadding: false,
       body: Container(
+        margin: EdgeInsets.only(left: 16.0,right: 16.0),
         constraints: BoxConstraints.expand(),
         color: Colors.white,
         child: Column(
@@ -161,7 +165,7 @@ return false;
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(50))),
                   color: Colors.green,
-                  onPressed: Onsignclick,
+                  onPressed: isLoggedIn?null : Onsignclick,
                   child: Text("SIGN"),
                 ),
               ),
@@ -170,14 +174,14 @@ return false;
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 10, 10, 0),
+                  padding: const EdgeInsets.fromLTRB(0, 20, 10, 0),
                   child: GestureDetector(
                     onTap: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context)=>FogotPass()));
                     },
                     child: Text(
                       "Forget your passWord?",
-                      style: TextStyle(fontSize: 25, color: Colors.grey[500]),
+                      style: TextStyle(fontSize: 20, color: Colors.grey[500]),
                     ),
                   ),
                 ),
@@ -193,8 +197,10 @@ return false;
     if (bloc.isValidaInfo(_userC.text, _passC.text)) {
       LoadingDialog.showLoadingDialog(context, "Loading.....");
       bloc.Sign(_userC.text, _passC.text, () async {
+        _storage.write(key: "emailed", value: _userC.text);
+        _storage.write(key: "passed", value: _passC.text);
         LoadingDialog.hideLoadingDialog(context);
-        Navigator.push(
+        Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => Home()));
       }, (msg) {
         LoadingDialog.hideLoadingDialog(context);

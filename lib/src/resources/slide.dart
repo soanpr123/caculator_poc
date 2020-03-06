@@ -21,14 +21,9 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicator> {
         body: Container(
             alignment: Alignment.center,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
+//              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Image.asset(
-                  "assets/images/logo.png",
-                  width: 300,
-                  height: 200,
-                ),
                 CarouselSlider(
                   viewportFraction: 0.9,
                   aspectRatio: 2.0,
@@ -43,14 +38,16 @@ class _CarouselWithIndicatorState extends State<CarouselWithIndicator> {
                     return Builder(
                       builder: (BuildContext context) {
                         return Container(
+                          height: 120,
                           width: MediaQuery.of(context).size.width,
-                          margin: EdgeInsets.symmetric(horizontal: 10.0),
+                          margin: EdgeInsets.symmetric(horizontal: 0.0),
                           decoration: BoxDecoration(
                             color: Colors.green,
                           ),
                           child: Image.network(
                             imgUrl,
                             fit: BoxFit.fill,
+                            height: 200,
 
                           ),
                         );

@@ -70,7 +70,7 @@ class LoginBloc {
           print("thành công");
           onSucces();
         } else {
-          onRegisterErr("SignUp fail, please try again");
+          onRegisterErr("Sign In fail, please check Email and PassWord and try again");
         }
         return true;
       }

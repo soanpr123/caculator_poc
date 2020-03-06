@@ -27,13 +27,14 @@ LoginBloc _bloc=new  LoginBloc();
         title: Text("Sign Up"),
       ),
       body: Container(
+        margin: EdgeInsets.only(left: 20.0,right: 20.0),
         constraints: BoxConstraints.expand(),
         color: Colors.white,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Padding(
-              padding:const EdgeInsets.fromLTRB(10, 20, 10, 0),
+              padding:const EdgeInsets.fromLTRB(0, 20, 0, 0),
               child: Text("What your name ?",style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),),
             ),
             Padding(
