@@ -56,7 +56,7 @@ class _Splap extends State<Spalp> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    "Already have an account?",
+                    "Already have an account?", 
                     style: TextStyle(color: Colors.blue, fontSize: 15.0),
                   ),
                   GestureDetector(
