@@ -57,9 +57,13 @@ class HomeState extends State<Home> {
   double preofmonth = 0;
   final oCcy = new NumberFormat("0.##", "en_US");
   final oCcy2 = new NumberFormat("0.##", "en_US");
+  final oCcy3 = new NumberFormat("#", "en_US");
   String formatted;
   bool _isButtonDisabled;
   bool isExpand = false;
+  double toGoal = 0;
+  int toGoal2 = 0;
+  double leftt=60.0;
   innitText() {
     _oldControler.text = "35";
     _PreincomeControler.text = "60000";
@@ -99,6 +103,58 @@ class HomeState extends State<Home> {
     caculator();
   }
 
+  texts(String text, Color color) {
+    return Text(
+      text,
+      style: TextStyle(fontSize: 30, color: color),
+    );
+  }
+
+  togoal() {
+    toGoal = (willhave / willneel) * 100;
+    int reoust = int.parse(oCcy3.format(toGoal));
+    print(reoust);
+    if (reoust <= 65) {
+
+      toGoal2=0;
+      print("ttt: $toGoal2");
+      return Text(
+        "out of the red.",
+        style: TextStyle(fontSize: 30, color: Colors.red),
+      );
+    }else
+    if (reoust > 65 && reoust < 80) {
+
+        toGoal2=0;
+        print("ttt: $toGoal2");
+
+      return Text(
+        "close the gap.",
+        style: TextStyle(fontSize: 30, color: Colors.yellow),
+      );
+    }else
+    if (reoust >= 80 && reoust <= 95) {
+
+        toGoal2=0;
+        print("ttt: $toGoal2");
+
+     return Text(
+        "get you on track.",
+        style: TextStyle(fontSize: 30, color: Colors.blue),
+      );
+    }else
+    if (reoust > 95) {
+      if(reoust>99){
+        toGoal2=100;
+        print("ttt: $toGoal2");
+      }
+   return   Text(
+        "boost it even more?",
+        style: TextStyle(fontSize: 30, color: Colors.green),
+      );
+    }
+  }
+
   void caculator() {
     willNeed(
         double.parse(_lifeExpControler.text),
@@ -111,13 +167,17 @@ class HomeState extends State<Home> {
         int.parse(_oldControler.text),
         int.parse(_curentControler.text),
         int.parse(_otherIncomeControler.text));
-    print((willneel + willhave) / 100);
+
     Monpreincome(int.parse(_monlthlySaveControler.text),
         int.parse(_PreincomeControler.text));
+    togoal();
   }
 
   void Monpreincome(int saveMonth, int PreIncome) {
+
     _monlthlyControler = (saveMonth / (PreIncome / 12) * 100);
+
+
   }
 
   void willNeed(double lifeExpectancy, double ageRetire, double maintainMonth) {
@@ -385,8 +445,8 @@ class HomeState extends State<Home> {
                                   onPressed: () {
                                     setState(() {
                                       _counter = _counter + 50;
-                                      _monlthlySaveControler.text = '$_counter';
-                                      caculator();
+                                        _monlthlySaveControler.text = '$_counter';
+                                        caculator();
                                     });
                                   },
                                   child: Text(
@@ -411,6 +471,7 @@ class HomeState extends State<Home> {
                       Padding(
                         padding: const EdgeInsets.only(top: 15.0),
                         child: Text(
+                            formatted = oCcy.format(_monlthlyControler)==75? "75":
                           formatted = oCcy.format(_monlthlyControler),
                           style: TextStyle(fontSize: 20),
                         ),
@@ -1095,15 +1156,18 @@ class HomeState extends State<Home> {
                   Column(
                     children: <Widget>[
                       Padding(
-                        padding: EdgeInsets.only(top:10.0,
-                            right: MediaQuery.of(context).size.width /100),
-                        child: Text("You are 51% \nto goal",
+                        padding: EdgeInsets.only(
+                            top: 10.0,
+                            left: 0),
+                        child: Text(
+                           toGoal2==100 ?   "You are 100%\n to goal":
+                            "You are " +  oCcy3.format(toGoal) + "%\n to goal",
                             style: TextStyle(color: Colors.black)),
                       ),
                       SizedBox(
                         child: Padding(
                           padding: EdgeInsets.only(
-                              left: MediaQuery.of(context).size.width - 400),
+                              left:leftt),
                           child: Icon(
                             Icons.arrow_drop_down,
                             size: 40,
@@ -1116,7 +1180,6 @@ class HomeState extends State<Home> {
                   Container(
                     width: MediaQuery.of(context).size.width,
                     alignment: Alignment.center,
-
                     child: Stack(children: <Widget>[
                       Row(
                         children: <Widget>[
@@ -1128,7 +1191,7 @@ class HomeState extends State<Home> {
                                     border: Border.all(color: Colors.red),
                                     color: Colors.red),
                                 height: 50,
-                                width: 100,
+                                width: 85,
                               ),
                               Container(
                                 alignment: Alignment.center,
@@ -1157,7 +1220,6 @@ class HomeState extends State<Home> {
                           ),
                         ],
                       ),
-
                     ]),
                   ),
                   Padding(
@@ -1167,11 +1229,12 @@ class HomeState extends State<Home> {
                       style: TextStyle(fontSize: 40),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 0.0),
-                    child: Text(
-                      "Out the red.",
-                      style: TextStyle(fontSize: 30, color: Colors.red),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 50,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 15.0),
+                      child: togoal(),
                     ),
                   ),
                 ],
