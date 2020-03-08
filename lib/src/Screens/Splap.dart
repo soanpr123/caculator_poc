@@ -14,7 +14,7 @@ class Spalp extends StatefulWidget {
 }
 
 class _Splap extends State<Spalp> {
-  final _storage = new FlutterSecureStorage();
+
 
   @override
   Widget build(BuildContext context) {
@@ -93,29 +93,11 @@ class _Splap extends State<Spalp> {
     Navigator.push(context, MaterialPageRoute(builder: (context) => SignUp()));
   }
 
-  void read() async {
-    String email = await _storage.read(key: "emailed");
-    String pass = await _storage.read(key: "passed");
-    print("valuesss= $email");
-    print("valuesss = $pass");
-    if(email!=null&&pass!=null){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Home()));
-      Fluttertoast.showToast(
-          msg: "login successfully",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIos: 2,
-          backgroundColor: Colors.green,
-          textColor: Colors.white,
-          fontSize: 16.0
-      );
-    }
 
-  }
 
   @override
   void initState() {
     super.initState();
-    read();
+
   }
 }
